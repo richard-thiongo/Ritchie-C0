@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 const Carousel = () => {
   return (
     <div>
@@ -8,27 +6,24 @@ const Carousel = () => {
           <div className="carousel slide" data-bs-ride="carousel" id="myCarousel">
             <div className="carousel-inner">
               <div className="carousel-item active">
-                <img src="images/ready.jpg" alt="Ready to Ship" height="500px" className="d-block w-100" />
+                <img src="images/shi.jpg" alt="Ready to Ship" height="500px" className="d-block w-100" />
                 <div className="carousel-caption">
                   <h2>Ready to Ship</h2>
                   <p>We are ready to ship to where you are</p>
-                  <Link to="/order" className="btn btn-info">Ship Now</Link>
                 </div>
               </div>
               <div className="carousel-item">
-                <img src="images/german.jpg" alt="German Cars" height="500px" className="d-block w-100" />
+                <img src="images/germ.jpg" alt="German Cars" height="500px" className="d-block w-100" />
                 <div className="carousel-caption">
                   <h2>German Cars</h2>
                   <p>We sell high performance German cars in our showrooms</p>
-                  <Link to="/order" className="btn btn-info">Order Now</Link>
                 </div>
               </div>
               <div className="carousel-item">
-                <img src="images/pagani carousl.jpg" alt="New Age Automobile" height="500px" className="d-block w-100" />
+                <img src="images/new.jpg" alt="New Age Automobile" height="500px" className="d-block w-100" />
                 <div className="carousel-caption">
                   <h2>New Age Automobile</h2>
                   <p>We have the new age automobiles in our various branches across the world.</p>
-                  <Link to="/order" className="btn btn-danger">Order Now</Link>
                 </div>
               </div>
             </div>

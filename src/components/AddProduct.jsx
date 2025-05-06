@@ -1,72 +1,172 @@
 import axios from "axios";
 import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import NavBar from "./NavBar";
+import Footer from "./Footer";
 
 const AddProduct = () => {
-    let [product_name,setProductName] = useState("")
-    let [product_desc,setProductDesc] = useState("")
-    let [product_cost,setProductCost] = useState("")
-    let [product_photo,setProductPhoto] = useState("")
-    let [loading,setLoading] = useState("")
-    let [error,setError] = useState("")
-    let [success, setSuccess] = useState("")
-    const fileInputRef = useRef(null)
+    let [product_name, setProductName] = useState("");
+    let [product_desc, setProductDesc] = useState("");
+    let [product_cost, setProductCost] = useState("");
+    let [product_photo, setProductPhoto] = useState("");
+    let [loading, setLoading] = useState("");
+    let [error, setError] = useState("");
+    let [success, setSuccess] = useState("");
+    const fileInputRef = useRef(null);
 
     const submitForm = async (e) => {
         e.preventDefault();
 
         try {
-            setError("")
-            setSuccess("")
-            setLoading("Please wait...")
+            setError("");
+            setSuccess("");
+            setLoading("Please wait...");
             
-            const data = new FormData()
-            data.append("product_name",product_name)
-            data.append("product_desc",product_desc)
-            data.append("product_cost",product_cost)
-            data.append("product_photo",product_photo)
+            const data = new FormData();
+            data.append("product_name", product_name);
+            data.append("product_desc", product_desc);
+            data.append("product_cost", product_cost);
+            data.append("product_photo", product_photo);
 
-            const response = await axios.post("https://richardthiongo.pythonanywhere.com/api/addproduct",data)
-            setLoading("")
-            setSuccess(response.data.success) 
-            setProductName("")
-            setProductDesc("")
-            setProductCost("")
+            const response = await axios.post("https://richardthiongo.pythonanywhere.com/api/addproduct", data);
+            setLoading("");
+            setSuccess(response.data.success);
+            setProductName("");
+            setProductDesc("");
+            setProductCost("");
             if (fileInputRef.current) {
                 fileInputRef.current.value = "";
             }
             
         } catch (error) {
-            setLoading("")
-            setError(error.message)
-            
-            
+            setLoading("");
+            setError(error.message);
         }
-    }
+    };
+
     return ( 
-     <div className="div row justify-content-center mt-4">
-        <nav className="m-4">
-                <Link className="btn btn-primary mx-2" to={"/"}>Home</Link>
-                <Link className="btn btn-primary mx-2" to={"/addproduct"}>Add Product</Link>
-                <Link className="btn btn-primary mx-2" to={"/signin"}>Sign In</Link>
-                <Link className="btn btn-primary mx-2" to={"/signup"}>Sign Up</Link>               
-            </nav>
-        <div className="col-md-6  card shadow p-4">
-            <h2>Add Product</h2>
-            <b className="text-warning">{loading}</b>
-            <b className="text-danger">{error}</b>
-            <b className="text-success">{success}</b>
-            <form onSubmit={submitForm}>
-                <input type="text" placeholder="Enter product name" value={product_name} required className="form-control" onChange={(e) => setProductName(e.target.value)} /> <br />
-                <textarea name="" id="" className="form-control" value={product_desc} required placeholder="Enter product description" onChange={(e) => setProductDesc(e.target.value)}></textarea> <br />
-                <input type="number" className="form-control" value={product_cost} required placeholder="Product cost" onChange={(e) => setProductCost(e.target.value)} /> <br />
-                <p>Product Photo</p>
-                <input ref={fileInputRef} type="file" className="form-control"  required onChange={(e) => setProductPhoto(e.target.files[0])}/> <br />
-                <button className="btn btn-primary">Add Product</button> 
-            </form>
+        <div className="container-fluid px-0">
+            <NavBar />
+            
+            <div className="main-content">
+                <div className="container py-5">
+                    <div className="row justify-content-center">
+                        <div className="col-md-8">
+                            <div className="card glass-effect tech-hover">
+                                <div className="card-body p-4">
+                                    <h2 className="text-center mb-4 text-gradient">
+                                        <i className="bi bi-plus-circle me-2"></i>
+                                        Add New Product
+                                    </h2>
+                                    
+                                    {loading && (
+                                        <div className="text-center mb-4">
+                                            <div className="loading mx-auto"></div>
+                                            <p className="text-warning mt-2">{loading}</p>
+                                        </div>
+                                    )}
+                                    
+                                    {error && (
+                                        <div className="alert alert-danger tech-hover" role="alert">
+                                            <i className="bi bi-exclamation-triangle me-2"></i>
+                                            {error}
+                                        </div>
+                                    )}
+                                    
+                                    {success && (
+                                        <div className="alert alert-success tech-hover" role="alert">
+                                            <i className="bi bi-check-circle me-2"></i>
+                                            {success}
+                                        </div>
+                                    )}
+
+                                    <form onSubmit={submitForm} className="needs-validation">
+                                        <div className="mb-4">
+                                            <label className="form-label text-light">
+                                                <i className="bi bi-tag me-2"></i>
+                                                Product Name
+                                            </label>
+                                            <input 
+                                                type="text" 
+                                                placeholder="Enter product name" 
+                                                value={product_name} 
+                                                required 
+                                                className="form-control tech-hover" 
+                                                onChange={(e) => setProductName(e.target.value)} 
+                                            />
+                                        </div>
+
+                                        <div className="mb-4">
+                                            <label className="form-label text-light">
+                                                <i className="bi bi-card-text me-2"></i>
+                                                Product Description
+                                            </label>
+                                            <textarea 
+                                                className="form-control tech-hover" 
+                                                value={product_desc} 
+                                                required 
+                                                placeholder="Enter product description" 
+                                                onChange={(e) => setProductDesc(e.target.value)}
+                                                rows="4"
+                                            ></textarea>
+                                        </div>
+
+                                        <div className="mb-4">
+                                            <label className="form-label text-light">
+                                                <i className="bi bi-currency-dollar me-2"></i>
+                                                Product Cost
+                                            </label>
+                                            <input 
+                                                type="number" 
+                                                className="form-control tech-hover" 
+                                                value={product_cost} 
+                                                required 
+                                                placeholder="Enter product cost" 
+                                                onChange={(e) => setProductCost(e.target.value)} 
+                                            />
+                                        </div>
+
+                                        <div className="mb-4">
+                                            <label className="form-label text-light">
+                                                <i className="bi bi-image me-2"></i>
+                                                Product Photo
+                                            </label>
+                                            <div className="input-group tech-hover">
+                                                <input 
+                                                    ref={fileInputRef}
+                                                    type="file" 
+                                                    className="form-control" 
+                                                    required 
+                                                    onChange={(e) => setProductPhoto(e.target.files[0])}
+                                                    accept="image/*"
+                                                />
+                                                <span className="input-group-text bg-dark border-0">
+                                                    <i className="bi bi-upload text-warning"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div className="text-center">
+                                            <button 
+                                                type="submit" 
+                                                className="btn btn-warning btn-lg px-5"
+                                                disabled={loading}
+                                            >
+                                                <i className="bi bi-plus-circle me-2"></i>
+                                                Add Product
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <Footer />
         </div>
-     </div>
     );
-}
- 
+};
+
 export default AddProduct;

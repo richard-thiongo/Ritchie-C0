@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router ,Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignUp from './components/SignUp';
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap/dist/js/bootstrap.min.js"
@@ -9,6 +9,9 @@ import GetProduct from './components/GetProduct';
 import SingleProduct from './components/SingleProduct';
 import './App.css'; // This assumes App.css is in the same folder as App.js
 import AboutUs from './components/AboutUs';
+import UserProfile from './components/UserProfile';
+import PaymentSuccess from './components/PaymentSuccess';
+import CarServices from './components/CarServices';
 import "bootstrap-icons/font/bootstrap-icons.min.css";
 
 
@@ -27,7 +30,9 @@ function App() {
         <Route path="/" element={<GetProduct/>}/>
         <Route path="/singleproduct" element={<SingleProduct/>}/>
         <Route path="/aboutus" element={<AboutUs/>}/>
-        
+        <Route path="/profile" element={<UserProfile/>}/>
+        <Route path="/payment-success" element={<PaymentSuccess/>}/>
+        <Route path="/services" element={<CarServices/>}/>
       </Routes>
     </div>
     </Router>
